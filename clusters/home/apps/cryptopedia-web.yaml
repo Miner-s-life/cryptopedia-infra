@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cryptopedia-web
+  namespace: web
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: cryptopedia-web
+  template:
+    metadata:
+      labels:
+        app: cryptopedia-web
+    spec:
+      containers:
+        - name: cryptopedia-web
+          image: ghcr.io/miner-s-life/cryptopedia-web:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 3000
+          env:
+            - name: API_BASE_URL_INTERNAL
+              value: "http://cryptopedia-api.default.svc.cluster.local:8080"
+            - name: NEXT_PUBLIC_API_BASE_URL
+              value: "https://api.cryptopedia.kr"
+          resources:
+            requests:
+              cpu: "250m"
+              memory: "512Mi"
+            limits:
+              cpu: "500m"
+              memory: "1Gi"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: cryptopedia-web
+  namespace: web
+spec:
+  selector:
+    app: cryptopedia-web
+  ports:
+    - port: 80
+      targetPort: 3000
