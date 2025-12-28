@@ -23,6 +23,9 @@ spec:
         name: bitnami
         namespace: flux-system
   values:
+    image:
+      registry: docker.io
+      repository: bitnamilegacy/mysql
     auth:
       rootPassword: "SuperSecretRootPassword123!"
       database: "cryptopedia"
