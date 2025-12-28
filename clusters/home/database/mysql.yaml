@@ -17,14 +17,12 @@ spec:
   chart:
     spec:
       chart: mysql
-      version: "10.1.1"  # 더 안정적인 버전
+      version: "11.1.15"
       sourceRef:
         kind: HelmRepository
         name: bitnami
         namespace: flux-system
   values:
-    image:
-      tag: "8.0.36-debian-12-r12"
     auth:
       rootPassword: "SuperSecretRootPassword123!"
       database: "cryptopedia"
