@@ -1,0 +1,70 @@
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImageRepository
+metadata:
+  name: cryptopedia-api
+  namespace: flux-system
+spec:
+  image: ghcr.io/miner-s-life/cryptopedia-api
+  interval: 1m
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImagePolicy
+metadata:
+  name: cryptopedia-api
+  namespace: flux-system
+spec:
+  imageRepositoryRef:
+    name: cryptopedia-api
+  filterTags:
+    pattern: '^main-[0-9a-f]{7,40}$'
+  policy:
+    alphabetical:
+      order: desc
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImageRepository
+metadata:
+  name: cryptopedia-web
+  namespace: flux-system
+spec:
+  image: ghcr.io/miner-s-life/cryptopedia-web
+  interval: 1m
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImagePolicy
+metadata:
+  name: cryptopedia-web
+  namespace: flux-system
+spec:
+  imageRepositoryRef:
+    name: cryptopedia-web
+  filterTags:
+    pattern: '^main-[0-9a-f]{7,40}$'
+  policy:
+    alphabetical:
+      order: desc
+---
+apiVersion: image.toolkit.fluxcd.io/v1beta2
+kind: ImageUpdateAutomation
+metadata:
+  name: cryptopedia-images
+  namespace: flux-system
+spec:
+  interval: 1m
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  git:
+    checkout:
+      ref:
+        branch: main
+    commit:
+      author:
+        name: fluxcdbot
+        email: fluxcdbot@users.noreply.github.com
+      messageTemplate: 'chore(images): update cryptopedia images'
+    push:
+      branch: main
+  update:
+    path: ./clusters/home/apps
+    strategy: Setters

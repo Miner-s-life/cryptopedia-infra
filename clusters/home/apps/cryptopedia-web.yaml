@@ -15,6 +15,7 @@ spec:
     spec:
       containers:
         - name: cryptopedia-web
+          # Image tag is overridden by clusters/home/apps/cryptopedia-web-image-patch.yaml via kustomize patches.
           image: ghcr.io/miner-s-life/cryptopedia-web:latest
           imagePullPolicy: IfNotPresent
           ports:

@@ -15,6 +15,7 @@ spec:
     spec:
       containers:
       - name: api
+        # Image tag is overridden by clusters/home/apps/cryptopedia-api-image-patch.yaml via kustomize patches.
         image: ghcr.io/miner-s-life/cryptopedia-api:latest
         ports:
         - containerPort: 8080
