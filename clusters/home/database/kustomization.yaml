@@ -3,3 +3,4 @@ kind: Kustomization
 resources:
   - mysql.yaml
   - mysql-secret.sops.yaml
+  - redis.yaml
