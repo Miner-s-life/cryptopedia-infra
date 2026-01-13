@@ -5,6 +5,15 @@ metadata:
   namespace: db
 spec:
   interval: 30m
+  timeout: 15m
+  install:
+    disableWait: true
+    remediation:
+      retries: 3
+  upgrade:
+    disableWait: true
+    remediation:
+      retries: 3
   chart:
     spec:
       chart: redis
@@ -14,6 +23,9 @@ spec:
         name: bitnami
         namespace: flux-system
   values:
+    image:
+      registry: docker.io
+      repository: bitnamilegacy/redis
     auth:
       enabled: false
     architecture: standalone
