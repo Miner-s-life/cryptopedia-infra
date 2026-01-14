@@ -54,23 +54,3 @@ spec:
   - port: 80
     targetPort: 8080
   type: ClusterIP
----
-apiVersion: networking.k8s.io/v1
-kind: Ingress
-metadata:
-  name: cryptopedia-api
-  namespace: api
-  annotations:
-    traefik.ingress.kubernetes.io/router.entrypoints: web,websecure
-spec:
-  rules:
-  - host: api.cryptopedia.kr
-    http:
-      paths:
-      - path: /
-        pathType: Prefix
-        backend:
-          service:
-            name: cryptopedia-api
-            port:
-              number: 80
