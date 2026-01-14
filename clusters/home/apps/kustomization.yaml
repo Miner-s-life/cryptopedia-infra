@@ -4,7 +4,9 @@ resources:
   - cryptopedia-api.yaml
   - cryptopedia-web.yaml
   - cryptopedia-web-ingress.yaml
+  - cryptopedia-batch.yaml
 
 patchesStrategicMerge:
   - cryptopedia-api-image-patch.yaml
   - cryptopedia-web-image-patch.yaml
+  - cryptopedia-batch-image-patch.yaml

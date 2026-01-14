@@ -1,0 +1,57 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cryptopedia-batch
+  namespace: db
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: cryptopedia-batch
+  template:
+    metadata:
+      labels:
+        app: cryptopedia-batch
+    spec:
+      containers:
+      - name: batch
+        # Image tag is overridden by clusters/home/apps/cryptopedia-batch-image-patch.yaml via kustomize patches.
+        image: ghcr.io/miner-s-life/cryptopedia-ex-batch:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8080
+        env:
+        - name: SPRING_PROFILES_ACTIVE
+          value: "prod"
+        resources:
+          requests:
+            memory: "256Mi"
+            cpu: "200m"
+          limits:
+            memory: "512Mi"
+            cpu: "500m"
+        livenessProbe:
+          httpGet:
+            path: /actuator/health
+            port: 8080
+          initialDelaySeconds: 120
+          periodSeconds: 10
+        readinessProbe:
+          httpGet:
+            path: /actuator/health
+            port: 8080
+          initialDelaySeconds: 60
+          periodSeconds: 5
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: cryptopedia-batch
+  namespace: db
+spec:
+  selector:
+    app: cryptopedia-batch
+  ports:
+  - port: 80
+    targetPort: 8080
+  type: ClusterIP
