@@ -22,7 +22,7 @@ spec:
             - containerPort: 3000
           env:
             - name: API_BASE_URL_INTERNAL
-              value: "http://cryptopedia-api.default.svc.cluster.local:8080"
+              value: "http://cryptopedia-api.api.svc.cluster.local:8080"
             - name: NEXT_PUBLIC_API_BASE_URL
               value: "https://api.cryptopedia.kr"
           resources:
