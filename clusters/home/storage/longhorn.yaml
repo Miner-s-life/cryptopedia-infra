@@ -26,6 +26,7 @@ spec:
     defaultSettings:
       defaultStorageClass: true
       defaultReplicaCount: 1
+      guaranteedInstanceManagerCPU: 10
     longhornUI:
       replicas: 1
     persistence:
