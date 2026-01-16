@@ -17,7 +17,7 @@ spec:
         - name: cryptopedia-web
           # Image tag is overridden by clusters/home/apps/cryptopedia-web-image-patch.yaml via kustomize patches.
           image: ghcr.io/miner-s-life/cryptopedia-web:latest
-          imagePullPolicy: IfNotPresent
+          imagePullPolicy: Always
           ports:
             - containerPort: 3000
           env:
@@ -27,8 +27,8 @@ spec:
               value: "https://api.cryptopedia.kr"
           resources:
             requests:
-              cpu: "250m"
-              memory: "512Mi"
+              cpu: "100m"
+              memory: "256Mi"
             limits:
               cpu: "500m"
               memory: "1Gi"
