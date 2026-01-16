@@ -6,3 +6,4 @@ resources:
   - database/
   - namespaces/
   - apps/
+  - observability/
