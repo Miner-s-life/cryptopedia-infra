@@ -19,7 +19,7 @@ spec:
         image: ghcr.io/miner-s-life/cryptopedia-ex-batch:latest
         imagePullPolicy: Always
         ports:
-        - containerPort: 8080
+        - containerPort: 7070
         env:
         - name: SPRING_PROFILES_ACTIVE
           value: "prod"
@@ -33,13 +33,13 @@ spec:
         livenessProbe:
           httpGet:
             path: /actuator/health
-            port: 8080
+            port: 7070
           initialDelaySeconds: 120
           periodSeconds: 10
         readinessProbe:
           httpGet:
             path: /actuator/health
-            port: 8080
+            port: 7070
           initialDelaySeconds: 60
           periodSeconds: 5
 ---
@@ -53,5 +53,5 @@ spec:
     app: cryptopedia-batch
   ports:
   - port: 80
-    targetPort: 8080
+    targetPort: 7070
   type: ClusterIP
