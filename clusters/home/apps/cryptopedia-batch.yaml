@@ -13,12 +13,6 @@ spec:
       labels:
         app: cryptopedia-batch
     spec:
-      securityContext:
-        sysctls:
-        - name: fs.inotify.max_user_instances
-          value: "512"
-        - name: fs.inotify.max_user_watches
-          value: "65536"
       containers:
       - name: batch
         # Image tag is overridden by clusters/home/apps/cryptopedia-batch-image-patch.yaml via kustomize patches.
